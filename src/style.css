@@ -26,6 +26,9 @@ button {
 button:hover {
   @apply bg-yellow-700;
 }
+button:disabled {
+  @apply bg-slate-600;
+}
 ul {
   @apply list-none flex flex-col text-sm;
 }
@@ -35,6 +38,6 @@ li {
 li:hover {
   @apply text-white;
 }
-.date {
-  @apply font-semibold w-28 inline-block;
+span {
+  @apply font-semibold w-6 inline-block;
 }

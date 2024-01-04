@@ -5,6 +5,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <ul></ul>`;
 
 loadClient();
+const button = document.querySelector("button")!;
 
 function loadClient() {
   gapi.load("client", () => {
@@ -17,8 +18,6 @@ function loadClient() {
       })
       .then(() => {
         console.log("YouTube API client loaded.");
-        const button = document.querySelector("button")!;
-        button.style.display = "block";
       })
       .catch((error: Error) => {
         console.error("Error loading YouTube API client:", error);
@@ -44,20 +43,22 @@ function getData() {
     .then((videoListData) => {
       const videoList = videoListData.result.items!;
       const display = document.querySelector("ul")!;
-      videoList.forEach((videoData) => {
+      videoList.forEach((videoData, index) => {
         const row = document.createElement("li");
-        const date = videoData.snippet?.publishedAt?.slice(0,10);
+        const date = videoData.snippet?.publishedAt?.slice(0, 10);
         const id = videoData.snippet?.resourceId?.videoId;
         let title = videoData.snippet?.title;
-        if (title?.includes("A.J. Christian - ")) title = title.replace("A.J. Christian - ", "");
+        if (title?.includes("A.J. Christian - "))
+          title = title.replace("A.J. Christian - ", "");
         row.innerHTML = `
-          <span class="date">${date}</span> 
+          <span class="date">${index + 1}.</span> 
           <a href="https://www.youtube.com/watch?v=${id}" 
           target="blank">
-          ${title}
+          ${title} (${date})
           </a>
         `;
         display.append(row);
+        button.disabled = true;
       });
     })
     .catch((error: Error) => {
@@ -65,5 +66,4 @@ function getData() {
     });
 }
 
-const button = document.querySelector("button")!;
 button.onclick = getData;
