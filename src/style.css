@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* * {
+  @apply border-red-600 border-2;
+} */
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   color-scheme: light dark;
@@ -12,20 +15,26 @@
   @apply text-stone-100 bg-slate-900;
 }
 body {
-  @apply m-0 flex justify-center;
+  @apply m-0;
 }
 #app {
-  @apply pt-8;
+  @apply pt-8 w-full flex flex-col items-center;
 }
 button {
-  @apply rounded-md p-2 w-48 bg-yellow-400 text-black cursor-pointer;
+  @apply rounded-md p-2 w-48 bg-yellow-400 text-black cursor-pointer mb-10;
 }
 button:hover {
   @apply bg-yellow-700;
 }
 ul {
-  list-style-type: none;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  @apply list-none flex flex-col text-sm;
+}
+li {
+  @apply pb-1 text-yellow-700;
+}
+li:hover {
+  @apply text-white;
+}
+.date {
+  @apply font-semibold w-28 inline-block;
 }

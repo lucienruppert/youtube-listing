@@ -1,8 +1,6 @@
 import "./style.css";
 
-document.querySelector<HTMLDivElement>(
-  "#app"
-)!.innerHTML = `
+document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <button>Kérem a videólistát</button>
 <ul></ul>`;
 
@@ -46,10 +44,19 @@ function getData() {
     .then((videoListData) => {
       const videoList = videoListData.result.items!;
       const display = document.querySelector("ul")!;
-      videoList.map((videoData) => {
+      videoList.forEach((videoData) => {
         const row = document.createElement("li");
-        row.innerHTML = `<div>${videoData.snippet?.title}</div>`;
-        console.log(videoData.snippet?.resourceId?.videoId);
+        const date = videoData.snippet?.publishedAt?.slice(0,10);
+        const id = videoData.snippet?.resourceId?.videoId;
+        let title = videoData.snippet?.title;
+        if (title?.includes("A.J. Christian - ")) title = title.replace("A.J. Christian - ", "");
+        row.innerHTML = `
+          <span class="date">${date}</span> 
+          <a href="https://www.youtube.com/watch?v=${id}" 
+          target="blank">
+          ${title}
+          </a>
+        `;
         display.append(row);
       });
     })
